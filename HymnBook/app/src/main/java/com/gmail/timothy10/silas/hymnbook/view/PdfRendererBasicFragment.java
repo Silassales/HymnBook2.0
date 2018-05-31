@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.pdfrendererbasic;
+package com.gmail.timothy10.silas.hymnbook.view;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -69,16 +69,6 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
     private ImageView mImageView;
 
     /**
-     * {@link android.widget.Button} to move to the previous page.
-     */
-    private Button mButtonPrevious;
-
-    /**
-     * {@link android.widget.Button} to move to the next page.
-     */
-    private Button mButtonNext;
-
-    /**
      * PDF page index
      */
     private int mPageIndex;
@@ -99,9 +89,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
         mImageView = (ImageView) view.findViewById(R.id.image);
         mButtonPrevious = (Button) view.findViewById(R.id.previous);
         mButtonNext = (Button) view.findViewById(R.id.next);
-        // Bind events.
-        mButtonPrevious.setOnClickListener(this);
-        mButtonNext.setOnClickListener(this);
+
 
         mPageIndex = 0;
         // If there is a savedInstanceState (screen orientations, etc.), we restore the page index.
