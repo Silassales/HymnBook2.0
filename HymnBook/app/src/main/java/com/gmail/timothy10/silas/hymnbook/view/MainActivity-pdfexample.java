@@ -22,6 +22,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.gmail.timothy10.silas.hymnbook.R;
+import com.gmail.timothy10.silas.hymnbook.view.PdfRendererBasicFragment;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String FRAGMENT_PDF_RENDERER_BASIC = "pdf_renderer_basic";

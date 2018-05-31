@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.view;
+package com.gmail.timothy10.silas.hymnbook.view.impl;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,13 +9,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.gmail.timothy10.silas.hymnbook.R;
+import com.gmail.timothy10.silas.hymnbook.view.PdfRendererBasicFragment;
+import com.gmail.timothy10.silas.hymnbook.view.def.MainView;
+
+public class MainActivity extends AppCompatActivity implements MainView, NavigationView.OnNavigationItemSelectedListener {
+
+    /* the identifier used for retrieval for the fragment */
+    private static final String FRAGMENT_ID = "pdf_renderer_basic";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -36,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.MainPDFFrame, new PdfRendererBasicFragment(),
+                            FRAGMENT_ID)
+                    .commit();
+        }
     }
 
     @Override
@@ -95,4 +114,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }
