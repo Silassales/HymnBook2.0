@@ -16,23 +16,19 @@
 
 package com.example.android.pdfrendererbasic;
 
-import android.content.Context;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * This fragment has a big {@ImageView} that shows PDF pages, and 2
@@ -50,7 +46,7 @@ public class PdfRendererBasicFragment extends Fragment implements View.OnClickLi
     /**
      * The filename of the PDF.
      */
-    private static final String FILENAME = "sample.pdf";
+    private static final String FILENAME = "hymn_book.pdf";
 
     /**
      * File descriptor of the PDF.
