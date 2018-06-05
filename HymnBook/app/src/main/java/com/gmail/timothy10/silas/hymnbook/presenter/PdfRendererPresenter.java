@@ -25,18 +25,23 @@ public class PdfRendererPresenter {
         this.pdfRendererBasicView = pdfRendererBasicView;
     }
 
-    public void onTouch(View view, MotionEvent event, PdfRenderer.Page mCurrentPage) {
+    public boolean onTouch(View view, MotionEvent event, PdfRenderer.Page mCurrentPage) {
         switch(event.getAction()) {
-            case(MotionEvent.ACTION_DOWN):
+            case(MotionEvent.ACTION_UP):
                 float eventX = event.getX();
                 if(eventX <= pdfRendererBasicView.getActivity().getWindow().getDecorView().getWidth()/2) {
                     pdfRendererBasicView.showPage(mCurrentPage.getIndex() - 1);
                 } else {
                     pdfRendererBasicView.showPage(mCurrentPage.getIndex() + 1);
                 }
-                view.performClick();
                 break;
         }
+        performClick(view);
+        return true;
+    }
+
+    private boolean performClick(View view) {
+        return view.isClickable() && view.isEnabled() && view.performClick();
     }
 
 

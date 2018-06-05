@@ -1,5 +1,6 @@
 package com.gmail.timothy10.silas.hymnbook.view.impl;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
@@ -129,10 +130,10 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility") // performClick is called in presenter
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        pdfRendererPresenter.onTouch(view, event, mCurrentPage);
-        return true;
+        return pdfRendererPresenter.onTouch(view, event, mCurrentPage);
     }
 
 
@@ -200,5 +201,4 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     public int getPageCount() {
         return mPdfRenderer.getPageCount();
     }
-
 }
