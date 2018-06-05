@@ -6,6 +6,7 @@ import android.graphics.pdf.PdfRenderer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gmail.timothy10.silas.hymnbook.R;
+import com.gmail.timothy10.silas.hymnbook.presenter.PdfRendererPresenter;
 import com.gmail.timothy10.silas.hymnbook.view.def.PdfRendererBasicView;
 
 import java.io.File;
@@ -66,7 +68,14 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
      */
     private int mPageIndex;
 
+    /**
+     * Presenter for this class
+     */
+    @NonNull
+    private PdfRendererPresenter pdfRendererPresenter;
+
     public PdfRendererBasicViewImpl() {
+        pdfRendererPresenter = new PdfRendererPresenter(this);
     }
 
     @Override
@@ -122,19 +131,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
 
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-
-        float eventX;
-
-        switch(event.getAction()) {
-            case(MotionEvent.ACTION_UP):
-                eventX = event.getX();
-                if(eventX <= getActivity().getWindow().getDecorView().getWidth()/2) {
-                    showPage(mCurrentPage.getIndex() - 1);
-                } else {
-                    showPage(mCurrentPage.getIndex() + 1);
-                }
-                break;
-        }
+        pdfRendererPresenter.onTouch(view, event, mCurrentPage);
         return true;
     }
 
