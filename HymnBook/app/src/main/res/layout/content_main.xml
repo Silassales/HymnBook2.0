@@ -7,6 +7,17 @@
     android:orientation="vertical"
     tools:context="com.gmail.timothy10.silas.hymnbook.view.impl.MainActivity">
 
+    <EditText
+        android:id="@+id/HymnSearchBar"
+        style="@android:style/Widget.DeviceDefault.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:ems="10"
+        android:hint="Choose Hymn"
+        android:inputType="number"
+        android:selectAllOnFocus="false" />
+
     <ImageView
         android:id="@+id/pdfImageView"
         android:layout_width="match_parent"

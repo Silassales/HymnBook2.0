@@ -14,11 +14,13 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gmail.timothy10.silas.hymnbook.R;
 import com.gmail.timothy10.silas.hymnbook.presenter.PdfRendererPresenter;
+import com.gmail.timothy10.silas.hymnbook.presenter.HymnSearchTextChanged;
 import com.gmail.timothy10.silas.hymnbook.view.def.PdfRendererBasicView;
 
 import java.io.File;
@@ -75,6 +77,16 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     @NonNull
     private PdfRendererPresenter pdfRendererPresenter;
 
+    /**
+     * hymn search bar
+     */
+    private EditText hymnSearchBar;
+
+    /**
+     * listener for hymn search bar
+     */
+    private HymnSearchTextChanged hymnSearchTextChanged;
+
     public PdfRendererBasicViewImpl() {
         pdfRendererPresenter = new PdfRendererPresenter(this);
     }
@@ -92,6 +104,11 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         mImageView = view.findViewById(R.id.pdfImageView);
 
         view.setOnTouchListener(this);
+
+        //set up search bar
+        hymnSearchBar = view.findViewById(R.id.HymnSearchBar);
+        hymnSearchTextChanged = new HymnSearchTextChanged();
+        hymnSearchBar.addTextChangedListener(hymnSearchTextChanged);
 
         mPageIndex = 100;
         // If there is a savedInstanceState (screen orientations, etc.), we restore the page index.
@@ -201,4 +218,5 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     public int getPageCount() {
         return mPdfRenderer.getPageCount();
     }
+
 }

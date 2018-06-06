@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
                         .commit();
             }
         } else {
-            Log.w("OnCreateWarn","API 19 detected, not impl yet");
+            Log.w("MainActivityWarn","API 19 or lower detected, not impl yet");
             Toast.makeText(this, String.format(Locale.getDefault(),"API level: %d not implemented yet", Build.VERSION.SDK_INT), Toast.LENGTH_LONG).show();
             // render some other type of view or something
         }
