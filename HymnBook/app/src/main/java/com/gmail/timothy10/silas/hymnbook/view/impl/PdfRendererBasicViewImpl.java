@@ -19,8 +19,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.gmail.timothy10.silas.hymnbook.R;
-import com.gmail.timothy10.silas.hymnbook.presenter.PdfRendererPresenter;
 import com.gmail.timothy10.silas.hymnbook.presenter.HymnSearchTextChanged;
+import com.gmail.timothy10.silas.hymnbook.presenter.PdfRendererPresenter;
+import com.gmail.timothy10.silas.hymnbook.util.BitmapScalar;
+import com.gmail.timothy10.silas.hymnbook.util.DeviceDimensionsHelper;
 import com.gmail.timothy10.silas.hymnbook.view.def.PdfRendererBasicView;
 
 import java.io.File;
@@ -199,13 +201,17 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         // Important: the destination bitmap must be ARGB (not RGB).
         Bitmap bitmap = Bitmap.createBitmap(mCurrentPage.getWidth(), mCurrentPage.getHeight(),
                 Bitmap.Config.ARGB_8888);
+
+        int height = DeviceDimensionsHelper.getDisplayHeight(getContext());
+        Bitmap scaledBitmap = BitmapScalar.scaleToFitHeight(bitmap, height);
+
         // Here, we render the page onto the Bitmap.
         // To render a portion of the page, use the second and third parameter. Pass nulls to get
         // the default result.
         // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
-        mCurrentPage.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+        mCurrentPage.render(scaledBitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
         // We are ready to show the Bitmap to user.
-        mImageView.setImageBitmap(bitmap);
+        mImageView.setImageBitmap(scaledBitmap);
         updateUi();
     }
 
