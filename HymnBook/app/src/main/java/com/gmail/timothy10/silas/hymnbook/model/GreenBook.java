@@ -14,7 +14,7 @@ import java.util.Map;
  * Created by Silas on 6/8/2018.
  */
 
-public class GreenBook extends Constants implements HymnBook{
+public class GreenBook implements HymnBook{
 
     /**
     TODO: These arrays represent the hymns that have 2 or more pages in the hymn book, this is used to populate
@@ -34,15 +34,15 @@ public class GreenBook extends Constants implements HymnBook{
     }
 
     @Override
-    public int getFirstHymnPage() { return GREEN_BOOK_FIRST_HYMN_PAGE; }
+    public int getFirstHymnPage() { return Constants.GREEN_BOOK_FIRST_HYMN_PAGE; }
 
     @Override
-    public int getLastHymnPage() { return GREEN_BOOK_LAST_HYMN_PAGE; }
+    public int getLastHymnPage() { return Constants.GREEN_BOOK_LAST_HYMN_PAGE; }
 
     @Override
     public int getHymnPageNumber(int hymn_number) {
         //validation
-        if(hymn_number < GREEN_BOOK_FIRST_HYMN || hymn_number  > GREEN_BOOK_LAST_HYMN) {
+        if(hymn_number < Constants.GREEN_BOOK_FIRST_HYMN || hymn_number  > Constants.GREEN_BOOK_LAST_HYMN) {
             Log.w("GreenBook", "Invalid hymn number in getHymnPageNumber: " + hymn_number);
             return -1;
         }
@@ -58,11 +58,11 @@ public class GreenBook extends Constants implements HymnBook{
      */
     private Map populateHymnBook() {
         Map<Integer, Integer> new_hymn_map = new HashMap<>();
-        int page_num = GREEN_BOOK_FIRST_HYMN_PAGE;
+        int page_num = Constants.GREEN_BOOK_FIRST_HYMN_PAGE;
 
         Log.i("GreenBook", "populating green book map");
 
-        for(int i = 1; i <= GREEN_BOOK_LAST_HYMN; i++) {
+        for(int i = 1; i <= Constants.GREEN_BOOK_LAST_HYMN; i++) {
             new_hymn_map.put(i, page_num);
             if(arrayContains(TWO_PAGE, i)) {
                 page_num+=2;

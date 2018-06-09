@@ -6,7 +6,7 @@ package com.gmail.timothy10.silas.hymnbook;
  * Created by Silas on 6/9/2018.
  */
 
-public abstract class Constants {
+public class Constants {
 
     /*
     Green book constants

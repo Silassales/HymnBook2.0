@@ -18,7 +18,7 @@ import com.gmail.timothy10.silas.hymnbook.view.impl.PdfRendererBasicViewImpl;
  */
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class PdfRendererPresenter extends Constants{
+public class PdfRendererPresenter {
 
     @NonNull
     private PdfRendererBasicViewImpl pdfRendererBasicView;
@@ -46,13 +46,13 @@ public class PdfRendererPresenter extends Constants{
     private int getNextPage(int current_page) {
         Log.i("PdfRendererPresenter", "getNextPage for current_page: " + current_page);
         //range check
-        if(++current_page > GREEN_BOOK_LAST_PAGE) return --current_page;
+        if(++current_page > Constants.GREEN_BOOK_LAST_PAGE) return --current_page;
         return current_page;
     }
 
     private int getPrevPage(int current_page) {
         Log.i("PdfRendererPresenter", "getPrevPage for current_page: " + current_page);
-        if(--current_page < GREEN_BOOK_FIRST_PAGE) return ++current_page;
+        if(--current_page < Constants.GREEN_BOOK_FIRST_PAGE) return ++current_page;
         return current_page;
     }
 

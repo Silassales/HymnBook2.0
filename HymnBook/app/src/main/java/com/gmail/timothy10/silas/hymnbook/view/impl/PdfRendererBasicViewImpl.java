@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.gmail.timothy10.silas.hymnbook.Constants;
 import com.gmail.timothy10.silas.hymnbook.R;
 import com.gmail.timothy10.silas.hymnbook.presenter.HymnSearchTextChanged;
 import com.gmail.timothy10.silas.hymnbook.presenter.PdfRendererPresenter;
@@ -84,11 +85,6 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
      */
     private EditText hymnSearchBar;
 
-    /**
-     * listener for hymn search bar
-     */
-    private HymnSearchTextChanged hymnSearchTextChanged;
-
     public PdfRendererBasicViewImpl() {
         pdfRendererPresenter = new PdfRendererPresenter(this);
     }
@@ -109,13 +105,18 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
 
         //set up search bar
         hymnSearchBar = view.findViewById(R.id.HymnSearchBar);
-        hymnSearchTextChanged = new HymnSearchTextChanged(this);
+        resetHymnSearchText();
+
+        /*
+            listener for hymn search bar
+        */
+        HymnSearchTextChanged hymnSearchTextChanged = new HymnSearchTextChanged(this);
         hymnSearchBar.addTextChangedListener(hymnSearchTextChanged);
 
-        mPageIndex = 100;
+        mPageIndex = Constants.GREEN_BOOK_FIRST_HYMN_PAGE;
         // If there is a savedInstanceState (screen orientations, etc.), we restore the page index.
         if (null != savedInstanceState) {
-            mPageIndex = savedInstanceState.getInt(STATE_CURRENT_PAGE_INDEX, 100);
+            mPageIndex = savedInstanceState.getInt(STATE_CURRENT_PAGE_INDEX, Constants.GREEN_BOOK_FIRST_HYMN_PAGE);
         }
     }
 
@@ -142,7 +143,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+        public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (null != mCurrentPage) {
             outState.putInt(STATE_CURRENT_PAGE_INDEX, mCurrentPage.getIndex());
@@ -223,6 +224,14 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
 
     public int getPageCount() {
         return mPdfRenderer.getPageCount();
+    }
+
+    public void clearHymnSearchText() {
+        hymnSearchBar.setHint("");
+    }
+
+    public void resetHymnSearchText() {
+        hymnSearchBar.setHint(R.string.HymnSearchText);
     }
 
 }

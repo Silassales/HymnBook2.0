@@ -38,9 +38,16 @@ public class HymnSearchTextChanged implements TextWatcher {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        //remove the hint value
+        pdfRendererBasicView.clearHymnSearchText();
+
         //when the text is erased it will show up as a value of '""' therefore we want to check for this
         //to avoid filling up log with stack traces and save that for when we actually have a problem
-        if(s.toString().equals("")) return;
+        //we also want to reset the hymn search hint text
+        if(s.toString().equals("")) {
+            pdfRendererBasicView.resetHymnSearchText();
+            return;
+        }
 
         int hymn_number;
         try {
