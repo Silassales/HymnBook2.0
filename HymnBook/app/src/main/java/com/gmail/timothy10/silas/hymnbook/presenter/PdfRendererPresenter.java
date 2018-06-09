@@ -40,6 +40,14 @@ public class PdfRendererPresenter {
         return true;
     }
 
+    private int getNextPage(int current_page) {
+        return 0;
+    }
+
+    private int getPrevPage(int current_page) {
+        return 0;
+    }
+
     private boolean performClick(View view) {
         return view.isClickable() && view.isEnabled() && view.performClick();
     }
