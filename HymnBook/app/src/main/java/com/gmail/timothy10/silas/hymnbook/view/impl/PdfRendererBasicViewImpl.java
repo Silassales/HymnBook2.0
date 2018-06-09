@@ -109,7 +109,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
 
         //set up search bar
         hymnSearchBar = view.findViewById(R.id.HymnSearchBar);
-        hymnSearchTextChanged = new HymnSearchTextChanged();
+        hymnSearchTextChanged = new HymnSearchTextChanged(this);
         hymnSearchBar.addTextChangedListener(hymnSearchTextChanged);
 
         mPageIndex = 100;

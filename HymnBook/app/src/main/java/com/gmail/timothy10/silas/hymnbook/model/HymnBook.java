@@ -10,20 +10,11 @@ package com.gmail.timothy10.silas.hymnbook.model;
  * This interface is used to represent all we need to know about a Hymnbook at the presenter level
  * Presenter *should* never need to write to any of these values, and should not interact with
  * the hymn book in any way other than represented here
+ *
+ * Currently getNext/prev is not needed due to the pdf being one large on, but if we ever split that up
+ * we will need those methods
  */
 public interface HymnBook {
-
-    /**
-     * returns the page value of the next hymn (based on current static current hymn)
-     * @return the page number for the next hymn
-     */
-    int getNextHymnPage();
-
-    /**
-     * returns the page value of the previous hymn
-     * @returns the page number for the prev hymn
-     */
-    int getPrevHymnPage();
 
     /**
      * returns the page value of the first hymn in the hymn book (first page might not be the first
@@ -37,4 +28,10 @@ public interface HymnBook {
      * @returns the page number for the last hymn in the hymnbook
      */
     int getLastHymnPage();
+
+    /**
+     * returns the page value for a given hymn number (used for search)
+     * @returns the page number for the given hymn number, or -1 for invalid input
+     */
+    int getHymnPageNumber(int hymn_number);
 }

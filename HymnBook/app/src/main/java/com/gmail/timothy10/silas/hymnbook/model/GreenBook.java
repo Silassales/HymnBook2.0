@@ -4,7 +4,6 @@ import android.util.Log;
 
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -17,7 +16,7 @@ public class GreenBook implements HymnBook{
 
     private static final int FIRST_HYMN = 1;
     private static final int LAST_HYMN = 438;
-    private static final int FIRST_HYMN_PAGE = 4;
+    private static final int FIRST_HYMN_PAGE = 3;
     private static final int LAST_HYMN_PAGE = 632;
 
     /**
@@ -31,41 +30,10 @@ public class GreenBook implements HymnBook{
     private static final int[] THREE_PAGE = { 3,10,28,37,93,95,116,127,134,183,209,299,307,328,339,360,367,373,394 };
     private static final int[] FOUR_PAGE = { 62,140,170,283,290,308,309,326,327 };
 
-    private int current_hymn;
-
     private final Map hymn_book_map;
 
     public GreenBook() {
         hymn_book_map = Collections.unmodifiableMap(populateHymnBook());
-        current_hymn = FIRST_HYMN;
-    }
-
-    // for resume app state, we want current hymn not to be the first hymn
-    public GreenBook(int current_hymn) {
-        hymn_book_map = Collections.unmodifiableMap(populateHymnBook());
-        this.current_hymn = (current_hymn >= FIRST_HYMN && current_hymn <= LAST_HYMN) ? current_hymn : FIRST_HYMN;
-    }
-
-    public static void main(String [] args) {
-        GreenBook book = new GreenBook();
-        Iterator it = book.hymn_book_map.entrySet().iterator();
-
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-
-            System.out.println(pair);
-        }
-
-    }
-
-    @Override
-    public int getNextHymnPage() {
-        return 0;
-    }
-
-    @Override
-    public int getPrevHymnPage() {
-        return 0;
     }
 
     @Override
@@ -76,28 +44,39 @@ public class GreenBook implements HymnBook{
     @Override
     public int getLastHymnPage() { return LAST_HYMN_PAGE; }
 
+    @Override
+    public int getHymnPageNumber(int hymn_number) {
+        //validation
+        if(hymn_number < FIRST_HYMN || hymn_number  > LAST_HYMN) {
+            Log.w("GreenBook", "Invalid hymn number in getHymnPageNumber: " + hymn_number);
+            return -1;
+        }
+
+        int page_num = (int)hymn_book_map.get(hymn_number);
+
+        Log.i("GreenBook", "GetHymnPageNumber value: " + page_num);
+        return page_num;
+    }
+
     /*
         populates the hymnbook map with <hymnNumber, pageNumber> values
      */
     private Map populateHymnBook() {
-        Map<Integer, int[]> new_hymn_map = new HashMap<>();
+        Map<Integer, Integer> new_hymn_map = new HashMap<>();
         int page_num = FIRST_HYMN_PAGE;
 
         Log.i("GreenBook", "populating green book map");
 
         for(int i = 1; i <= LAST_HYMN; i++) {
+            new_hymn_map.put(i, page_num);
             if(arrayContains(TWO_PAGE, i)) {
-                int [] temp_array = {page_num++, page_num++};
-                new_hymn_map.put(i, temp_array);
+                page_num+=2;
             } else if(arrayContains(THREE_PAGE, i)) {
-                int [] temp_array = {page_num++, page_num++, page_num++};
-                new_hymn_map.put(i, temp_array);
+                page_num+=3;
             } else if(arrayContains(FOUR_PAGE, i)) {
-                int [] temp_array = {page_num++, page_num++, page_num++, page_num++};
-                new_hymn_map.put(i, temp_array);
+                page_num+=4;
             } else {
-                int [] temp_array = {page_num++};
-                new_hymn_map.put(i, temp_array);
+                page_num++;
             }
         }
 
