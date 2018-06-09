@@ -34,12 +34,10 @@ public class GreenBook extends Constants implements HymnBook{
     }
 
     @Override
-    public int getFirstHymnPage() {
-        return GREEN_BOOK_FIRST_PAGE;
-    }
+    public int getFirstHymnPage() { return GREEN_BOOK_FIRST_HYMN_PAGE; }
 
     @Override
-    public int getLastHymnPage() { return GREEN_BOOK_LAST_PAGE; }
+    public int getLastHymnPage() { return GREEN_BOOK_LAST_HYMN_PAGE; }
 
     @Override
     public int getHymnPageNumber(int hymn_number) {
@@ -60,7 +58,7 @@ public class GreenBook extends Constants implements HymnBook{
      */
     private Map populateHymnBook() {
         Map<Integer, Integer> new_hymn_map = new HashMap<>();
-        int page_num = GREEN_BOOK_FIRST_PAGE;
+        int page_num = GREEN_BOOK_FIRST_HYMN_PAGE;
 
         Log.i("GreenBook", "populating green book map");
 

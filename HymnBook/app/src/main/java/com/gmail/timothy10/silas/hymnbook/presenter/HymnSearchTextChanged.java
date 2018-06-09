@@ -38,6 +38,10 @@ public class HymnSearchTextChanged implements TextWatcher {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        //when the text is erased it will show up as a value of '""' therefore we want to check for this
+        //to avoid filling up log with stack traces and save that for when we actually have a problem
+        if(s.toString().equals("")) return;
+
         int hymn_number;
         try {
             hymn_number = Integer.parseInt(s.toString());

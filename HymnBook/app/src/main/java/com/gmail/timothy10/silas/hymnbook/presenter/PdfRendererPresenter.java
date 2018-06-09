@@ -4,9 +4,11 @@ import android.graphics.pdf.PdfRenderer;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.gmail.timothy10.silas.hymnbook.Constants;
 import com.gmail.timothy10.silas.hymnbook.view.impl.PdfRendererBasicViewImpl;
 
 /**
@@ -16,7 +18,7 @@ import com.gmail.timothy10.silas.hymnbook.view.impl.PdfRendererBasicViewImpl;
  */
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class PdfRendererPresenter {
+public class PdfRendererPresenter extends Constants{
 
     @NonNull
     private PdfRendererBasicViewImpl pdfRendererBasicView;
@@ -30,9 +32,10 @@ public class PdfRendererPresenter {
             case(MotionEvent.ACTION_UP):
                 float eventX = event.getX();
                 if(eventX <= pdfRendererBasicView.getActivity().getWindow().getDecorView().getWidth()/2) {
-                    pdfRendererBasicView.showPage(mCurrentPage.getIndex() - 1);
+
+                    pdfRendererBasicView.showPage(getPrevPage(mCurrentPage.getIndex()));
                 } else {
-                    pdfRendererBasicView.showPage(mCurrentPage.getIndex() + 1);
+                    pdfRendererBasicView.showPage(getNextPage(mCurrentPage.getIndex()));
                 }
                 break;
         }
@@ -41,11 +44,16 @@ public class PdfRendererPresenter {
     }
 
     private int getNextPage(int current_page) {
-        return 0;
+        Log.i("PdfRendererPresenter", "getNextPage for current_page: " + current_page);
+        //range check
+        if(++current_page > GREEN_BOOK_LAST_PAGE) return --current_page;
+        return current_page;
     }
 
     private int getPrevPage(int current_page) {
-        return 0;
+        Log.i("PdfRendererPresenter", "getPrevPage for current_page: " + current_page);
+        if(--current_page < GREEN_BOOK_FIRST_PAGE) return ++current_page;
+        return current_page;
     }
 
     private boolean performClick(View view) {
