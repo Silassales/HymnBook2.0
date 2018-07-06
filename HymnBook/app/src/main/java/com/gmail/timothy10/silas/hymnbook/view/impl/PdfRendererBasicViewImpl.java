@@ -2,14 +2,17 @@ package com.gmail.timothy10.silas.hymnbook.view.impl;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -81,6 +84,12 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     private PdfRendererPresenter pdfRendererPresenter;
 
     /**
+     * shared preferences
+     */
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor sharedPreferencesEditor;
+
+    /**
      * hymn search bar
      */
     private EditText hymnSearchBar;
@@ -95,8 +104,10 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         return inflater.inflate(R.layout.content_main, container, false);
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+
+        Log.i("PRBVI", "onViewCreated");
         super.onViewCreated(view, savedInstanceState);
         // Retain view references.
         mImageView = view.findViewById(R.id.pdfImageView);
@@ -113,17 +124,34 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         HymnSearchTextChanged hymnSearchTextChanged = new HymnSearchTextChanged(this);
         hymnSearchBar.addTextChangedListener(hymnSearchTextChanged);
 
+        //shared preferences init
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        sharedPreferencesEditor = sharedPreferences.edit();
+
         mPageIndex = Constants.GREEN_BOOK_FIRST_HYMN_PAGE;
         // If there is a savedInstanceState (screen orientations, etc.), we restore the page index.
         if (null != savedInstanceState) {
             mPageIndex = savedInstanceState.getInt(STATE_CURRENT_PAGE_INDEX, Constants.GREEN_BOOK_FIRST_HYMN_PAGE);
+            Log.i("PdfRendererBasic","Restoring current page state: " + mPageIndex);
+        } else {
+            // Try to retrieve it from the fragments bundle
+            Bundle fragment_bundle = this.getArguments();
+            if (fragment_bundle != null) {
+                mPageIndex = fragment_bundle.getInt(STATE_CURRENT_PAGE_INDEX, Constants.GREEN_BOOK_FIRST_HYMN_PAGE);
+                Log.i("PdfRendererBasic","Restoring current page state: " + mPageIndex);
+            }
         }
     }
 
     @Override
     public void onStart() {
+
+        Log.i("PRBVI", "onStart");
         super.onStart();
         try {
+            //see if there is a saved page to restore to
+            mPageIndex = (sharedPreferences.getInt(STATE_CURRENT_PAGE_INDEX, 0) != 0) ? sharedPreferences.getInt(STATE_CURRENT_PAGE_INDEX, 0) : mPageIndex;
+            Log.i("PRVBI", "Loaded pageIndex: " + mPageIndex);
             openRenderer(getActivity());
             showPage(mPageIndex);
         } catch (IOException e) {
@@ -143,11 +171,35 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        Log.i("PRBVI", "onResume");
+        // Try to resume page it from the fragments bundle
+        Bundle fragment_bundle = this.getArguments();
+        if (fragment_bundle != null) {
+            mPageIndex = fragment_bundle.getInt(STATE_CURRENT_PAGE_INDEX, Constants.GREEN_BOOK_FIRST_HYMN_PAGE);
+            Log.i("PdfRendererBasic","Restoring current page state: " + mPageIndex);
+            showPage(mPageIndex);
+        }
+    }
+
+
+    @Override
         public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         if (null != mCurrentPage) {
+            Log.i("PdfRendererBasic","Saving current page state: " + mCurrentPage.getIndex());
             outState.putInt(STATE_CURRENT_PAGE_INDEX, mCurrentPage.getIndex());
+            sharedPreferencesEditor.putInt(STATE_CURRENT_PAGE_INDEX, mCurrentPage.getIndex()).apply();
         }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.i("PRBVI","onActivityCreated");
     }
 
     @SuppressLint("ClickableViewAccessibility") // performClick is called in presenter
@@ -158,6 +210,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
 
 
     public void openRenderer(Context context) throws IOException {
+        Log.i("PRBVI","here");
         // In this sample, we read a PDF from the assets directory.
         File file = new File(context.getCacheDir(), FILENAME);
         if (!file.exists()) {
@@ -182,8 +235,15 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
 
 
     public void closeRenderer() throws IOException {
+        Log.i("Info", "Closing pdfViewRenderer");
+
         if (null != mCurrentPage) {
-            mCurrentPage.close();
+            try {
+                mCurrentPage.close();
+            } catch(IllegalStateException e) {
+                Log.w("PDFRendererBasic", "mCurrentPage attempted to be closed twice");
+            }
+
         }
         mPdfRenderer.close();
         mFileDescriptor.close();
@@ -195,7 +255,11 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         }
         // Make sure to close the current page before opening another one.
         if (null != mCurrentPage) {
-            mCurrentPage.close();
+            try {
+                mCurrentPage.close();
+            } catch(IllegalStateException e) {
+                Log.w("PDFRendererBasic", "mCurrentPage attempted to be closed twice");
+            }
         }
         // Use `openPage` to open a specific page in PDF.
         mCurrentPage = mPdfRenderer.openPage(index);

@@ -3,6 +3,7 @@ package com.gmail.timothy10.silas.hymnbook.view.impl;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,7 @@ import com.gmail.timothy10.silas.hymnbook.view.def.MainView;
 
 import java.util.Locale;
 
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity implements MainView, NavigationView.OnNavigationItemSelectedListener {
 
     /* the identifier used for retrieval for the fragment */
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
         //pdf renderer needs api level 21 or higher
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (savedInstanceState == null) {
+                Log.i("MainActivity", "Creating new pdf Fragment");
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.MainPDFFrame, new PdfRendererBasicViewImpl(),
                                 FRAGMENT_ID)
