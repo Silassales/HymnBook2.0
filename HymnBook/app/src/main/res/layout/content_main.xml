@@ -23,5 +23,6 @@
         android:layout_below="@+id/HymnSearchBar"
         android:src="@android:color/white"
         android:scaleType="fitCenter"
+        android:keepScreenOn="true"
         android:contentDescription="@null" />
 </RelativeLayout>
