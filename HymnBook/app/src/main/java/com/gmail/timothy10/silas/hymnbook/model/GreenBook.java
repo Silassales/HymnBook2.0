@@ -53,6 +53,16 @@ public class GreenBook implements HymnBook{
         return page_num;
     }
 
+    @Override
+    public int getHymnNumber(int page_value) {
+        Integer hymn_number = (Integer) hymn_book_map.get(page_value);
+        if(hymn_number != null) {
+            return hymn_number;
+        } else {
+            return -1;
+        }
+    }
+
     /*
         populates the hymnbook map with <hymnNumber, pageNumber> values
      */

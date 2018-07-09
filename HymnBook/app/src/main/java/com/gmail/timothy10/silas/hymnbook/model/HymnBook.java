@@ -34,4 +34,10 @@ public interface HymnBook {
      * @returns the page number for the given hymn number, or -1 for invalid input
      */
     int getHymnPageNumber(int hymn_number);
+
+    /**
+     * returns the hymn number for a given page value
+     * @returns the hymn number for a given page value, or -1 for invalid input
+     */
+    int getHymnNumber(int page_value);
 }

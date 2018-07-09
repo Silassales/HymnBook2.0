@@ -28,10 +28,10 @@ public class PdfRendererPresenter {
     }
 
     public boolean onTouch(View view, MotionEvent event, PdfRenderer.Page mCurrentPage) {
-        switch(event.getAction()) {
-            case(MotionEvent.ACTION_UP):
+        switch (event.getAction()) {
+            case (MotionEvent.ACTION_UP):
                 float eventX = event.getX();
-                if(eventX <= pdfRendererBasicView.getActivity().getWindow().getDecorView().getWidth()/2) {
+                if (eventX <= pdfRendererBasicView.getActivity().getWindow().getDecorView().getWidth() / 2) {
 
                     pdfRendererBasicView.showPage(getPrevPage(mCurrentPage.getIndex()));
                 } else {

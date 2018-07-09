@@ -68,4 +68,9 @@ public class HymnSearchTextChanged implements TextWatcher {
     public void afterTextChanged(Editable s) {
 
     }
+
+
+    public int getHymnNumberForPageNumber(int current_page) {
+        return hymnBook.getHymnNumber(current_page);
+    }
 }

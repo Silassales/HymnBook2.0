@@ -94,6 +94,8 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
      */
     private EditText hymnSearchBar;
 
+    private HymnSearchTextChanged hymnSearchTextChanged;
+
     public PdfRendererBasicViewImpl() {
         pdfRendererPresenter = new PdfRendererPresenter(this);
     }
@@ -121,7 +123,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         /*
             listener for hymn search bar
         */
-        HymnSearchTextChanged hymnSearchTextChanged = new HymnSearchTextChanged(this);
+        hymnSearchTextChanged = new HymnSearchTextChanged(this);
         hymnSearchBar.addTextChangedListener(hymnSearchTextChanged);
 
         //shared preferences init
@@ -281,9 +283,8 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     }
 
     public void updateUi() {
-        int index = mCurrentPage.getIndex();
-        int pageCount = mPdfRenderer.getPageCount();
-        getActivity().setTitle(getString(R.string.app_name_with_index, index + 1, pageCount));
+        int hymn_number = hymnSearchTextChanged.getHymnNumberForPageNumber(mCurrentPage.getIndex() + 1);
+        getActivity().setTitle(getString(R.string.title_name_with_index, hymn_number));
     }
 
     public int getPageCount() {
