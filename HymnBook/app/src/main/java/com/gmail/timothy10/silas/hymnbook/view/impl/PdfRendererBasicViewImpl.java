@@ -1,6 +1,7 @@
 package com.gmail.timothy10.silas.hymnbook.view.impl;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -207,7 +209,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     @SuppressLint("ClickableViewAccessibility") // performClick is called in presenter
     @Override
     public boolean onTouch(View view, MotionEvent event) {
-        return pdfRendererPresenter.onTouch(view, event, mCurrentPage);
+            return pdfRendererPresenter.onTouch(getActivity(), view, event, mCurrentPage);
     }
 
 

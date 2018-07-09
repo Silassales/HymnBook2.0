@@ -1,5 +1,6 @@
 package com.gmail.timothy10.silas.hymnbook.presenter;
 
+import android.app.Activity;
 import android.graphics.pdf.PdfRenderer;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.gmail.timothy10.silas.hymnbook.Constants;
 import com.gmail.timothy10.silas.hymnbook.view.impl.PdfRendererBasicViewImpl;
@@ -27,17 +29,21 @@ public class PdfRendererPresenter {
         this.pdfRendererBasicView = pdfRendererBasicView;
     }
 
-    public boolean onTouch(View view, MotionEvent event, PdfRenderer.Page mCurrentPage) {
+    public boolean onTouch(Activity activity, View view, MotionEvent event, PdfRenderer.Page mCurrentPage) {
         switch (event.getAction()) {
             case (MotionEvent.ACTION_UP):
-                float eventX = event.getX();
-                if (eventX <= pdfRendererBasicView.getActivity().getWindow().getDecorView().getWidth() / 2) {
+                // if the keyboard is open, dont show next/prev page, just close the keyboard
+                InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                if(!imm.hideSoftInputFromWindow(view.getWindowToken(), 0)) {
+                    float eventX = event.getX();
+                    if (eventX <= pdfRendererBasicView.getActivity().getWindow().getDecorView().getWidth() / 2) {
 
-                    pdfRendererBasicView.showPage(getPrevPage(mCurrentPage.getIndex()));
-                } else {
-                    pdfRendererBasicView.showPage(getNextPage(mCurrentPage.getIndex()));
+                        pdfRendererBasicView.showPage(getPrevPage(mCurrentPage.getIndex()));
+                    } else {
+                        pdfRendererBasicView.showPage(getNextPage(mCurrentPage.getIndex()));
+                    }
+                    break;
                 }
-                break;
         }
         performClick(view);
         return true;
