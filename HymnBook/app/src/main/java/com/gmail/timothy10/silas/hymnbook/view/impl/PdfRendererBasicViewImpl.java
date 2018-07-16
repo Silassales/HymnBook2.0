@@ -254,6 +254,15 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     }
 
     public void showPage(int index) {
+        if(mPdfRenderer == null) {
+            try{
+                openRenderer(getActivity());
+            } catch(IOException e) {
+                e.printStackTrace();
+                Toast.makeText(getActivity(), "Error! " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        }
+        
         if (mPdfRenderer.getPageCount() <= index) {
             return;
         }
