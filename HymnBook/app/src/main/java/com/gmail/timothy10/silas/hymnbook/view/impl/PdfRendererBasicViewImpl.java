@@ -30,6 +30,7 @@ import com.gmail.timothy10.silas.HymnBook.presenter.PdfRendererPresenter;
 import com.gmail.timothy10.silas.HymnBook.util.BitmapScalar;
 import com.gmail.timothy10.silas.HymnBook.util.DeviceDimensionsHelper;
 import com.gmail.timothy10.silas.HymnBook.util.OnSwipeTouchListener;
+import com.gmail.timothy10.silas.HymnBook.util.TouchImageView;
 import com.gmail.timothy10.silas.HymnBook.view.def.PdfRendererBasicView;
 
 import java.io.File;
@@ -71,9 +72,9 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
     private PdfRenderer.Page mCurrentPage;
 
     /**
-     * {@link android.widget.ImageView} that shows a PDF page as a {@link android.graphics.Bitmap}
+     * {@link TouchImageView} that shows a PDF page as a {@link android.graphics.Bitmap}
      */
-    private ImageView mImageView;
+    private TouchImageView mImageView;
 
     /**
      * PDF page index
@@ -117,7 +118,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         // Retain view references.
         mImageView = view.findViewById(R.id.pdfImageView);
 
-        view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+        mImageView.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
             public void onSwipeRight() {
                 showPage(pdfRendererPresenter.getPrevPage(mCurrentPage.getIndex()));
             }

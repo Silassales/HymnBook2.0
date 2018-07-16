@@ -16,7 +16,7 @@
         android:inputType="number"
         android:selectAllOnFocus="false" />
 
-    <ImageView
+    <com.gmail.timothy10.silas.HymnBook.util.TouchImageView
         android:id="@+id/pdfImageView"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
