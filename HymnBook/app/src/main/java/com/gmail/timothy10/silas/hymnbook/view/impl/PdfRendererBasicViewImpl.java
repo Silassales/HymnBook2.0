@@ -29,6 +29,7 @@ import com.gmail.timothy10.silas.HymnBook.presenter.HymnSearchTextChanged;
 import com.gmail.timothy10.silas.HymnBook.presenter.PdfRendererPresenter;
 import com.gmail.timothy10.silas.HymnBook.util.BitmapScalar;
 import com.gmail.timothy10.silas.HymnBook.util.DeviceDimensionsHelper;
+import com.gmail.timothy10.silas.HymnBook.util.OnSwipeTouchListener;
 import com.gmail.timothy10.silas.HymnBook.view.def.PdfRendererBasicView;
 
 import java.io.File;
@@ -116,7 +117,14 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         // Retain view references.
         mImageView = view.findViewById(R.id.pdfImageView);
 
-        view.setOnTouchListener(this);
+        view.setOnTouchListener(new OnSwipeTouchListener(getActivity()) {
+            public void onSwipeRight() {
+                showPage(pdfRendererPresenter.getPrevPage(mCurrentPage.getIndex()));
+            }
+            public void onSwipeLeft() {
+                showPage(pdfRendererPresenter.getNextPage(mCurrentPage.getIndex()));
+            }
+        });
 
         //set up search bar
         hymnSearchBar = view.findViewById(R.id.HymnSearchBar);
@@ -262,7 +270,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
                 Toast.makeText(getActivity(), "Error! " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
-        
+
         if (mPdfRenderer.getPageCount() <= index) {
             return;
         }

@@ -49,14 +49,14 @@ public class PdfRendererPresenter {
         return true;
     }
 
-    private int getNextPage(int current_page) {
+    public int getNextPage(int current_page) {
         Log.i("PdfRendererPresenter", "getNextPage for current_page: " + current_page);
         //range check
         if(++current_page > Constants.GREEN_BOOK_LAST_PAGE) return --current_page;
         return current_page;
     }
 
-    private int getPrevPage(int current_page) {
+    public int getPrevPage(int current_page) {
         Log.i("PdfRendererPresenter", "getPrevPage for current_page: " + current_page);
         if(--current_page < Constants.GREEN_BOOK_FIRST_PAGE) return ++current_page;
         return current_page;
