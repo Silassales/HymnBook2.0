@@ -1,8 +1,8 @@
-package com.gmail.timothy10.silas.hymnbook.model;
+package com.gmail.timothy10.silas.HymnBook.model;
 
 import android.util.Log;
 
-import com.gmail.timothy10.silas.hymnbook.Constants;
+import com.gmail.timothy10.silas.HymnBook.Constants;
 
 import java.util.Collections;
 import java.util.HashMap;

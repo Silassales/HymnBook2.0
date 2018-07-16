@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.model;
+package com.gmail.timothy10.silas.HymnBook.model;
 
 /**
  * HymnBook

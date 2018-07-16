@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook;
+package com.gmail.timothy10.silas.HymnBook;
 
 import org.junit.Test;
 

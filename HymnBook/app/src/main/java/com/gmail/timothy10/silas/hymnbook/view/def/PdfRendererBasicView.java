@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.view.def;
+package com.gmail.timothy10.silas.HymnBook.view.def;
 
 import android.content.Context;
 

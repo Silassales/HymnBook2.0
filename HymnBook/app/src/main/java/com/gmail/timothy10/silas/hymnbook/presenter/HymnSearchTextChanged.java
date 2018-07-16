@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.presenter;
+package com.gmail.timothy10.silas.HymnBook.presenter;
 
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -7,9 +7,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 
-import com.gmail.timothy10.silas.hymnbook.model.GreenBook;
-import com.gmail.timothy10.silas.hymnbook.model.HymnBook;
-import com.gmail.timothy10.silas.hymnbook.view.impl.PdfRendererBasicViewImpl;
+import com.gmail.timothy10.silas.HymnBook.model.GreenBook;
+import com.gmail.timothy10.silas.HymnBook.model.HymnBook;
+import com.gmail.timothy10.silas.HymnBook.view.impl.PdfRendererBasicViewImpl;
 
 /**
  * HymnSearchTextChanged

@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.view.impl;
+package com.gmail.timothy10.silas.HymnBook.view.impl;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -23,13 +23,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.gmail.timothy10.silas.hymnbook.Constants;
-import com.gmail.timothy10.silas.hymnbook.R;
-import com.gmail.timothy10.silas.hymnbook.presenter.HymnSearchTextChanged;
-import com.gmail.timothy10.silas.hymnbook.presenter.PdfRendererPresenter;
-import com.gmail.timothy10.silas.hymnbook.util.BitmapScalar;
-import com.gmail.timothy10.silas.hymnbook.util.DeviceDimensionsHelper;
-import com.gmail.timothy10.silas.hymnbook.view.def.PdfRendererBasicView;
+import com.gmail.timothy10.silas.HymnBook.Constants;
+import com.gmail.timothy10.silas.HymnBook.R;
+import com.gmail.timothy10.silas.HymnBook.presenter.HymnSearchTextChanged;
+import com.gmail.timothy10.silas.HymnBook.presenter.PdfRendererPresenter;
+import com.gmail.timothy10.silas.HymnBook.util.BitmapScalar;
+import com.gmail.timothy10.silas.HymnBook.util.DeviceDimensionsHelper;
+import com.gmail.timothy10.silas.HymnBook.view.def.PdfRendererBasicView;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -286,7 +286,7 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
 
     public void updateUi() {
         int hymn_number = hymnSearchTextChanged.getHymnNumberForPageNumber(mCurrentPage.getIndex() + 1);
-        getActivity().setTitle(getString(R.string.title_name_with_index, hymn_number));
+        getActivity().setTitle(getString(R.string.title_name));
     }
 
     public int getPageCount() {

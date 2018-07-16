@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.util;
+package com.gmail.timothy10.silas.HymnBook.util;
 
 import android.content.Context;
 import android.content.res.Resources;

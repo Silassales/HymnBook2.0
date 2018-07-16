@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.gmail.timothy10.silas.hymnbook"
-        minSdkVersion 19
+        applicationId "com.gmail.timothy10.silas.HymnBook"
+        minSdkVersion 21
         targetSdkVersion 26
-        versionCode 1
+        versionCode 4
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

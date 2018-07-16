@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HymnBook</string>
     <string name="app_name_with_index">HymnBook (%1$d/%2$d)</string>
+    <string name="title_name">Christadelphian HymnBook</string>
     <string name="title_name_with_index">Hymn: %1$d</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

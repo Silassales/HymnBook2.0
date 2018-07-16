@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.view.impl;
+package com.gmail.timothy10.silas.HymnBook.view.impl;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.gmail.timothy10.silas.hymnbook.R;
-import com.gmail.timothy10.silas.hymnbook.view.def.MainView;
+import com.gmail.timothy10.silas.HymnBook.R;
+import com.gmail.timothy10.silas.HymnBook.view.def.MainView;
 
 import java.util.Locale;
 
@@ -34,11 +34,11 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+//        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        drawer.addDrawerListener(toggle);
+//        toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            showMessage("Settings will be coming in a later update!");
             return true;
         }
 

@@ -1,4 +1,4 @@
-package com.gmail.timothy10.silas.hymnbook.presenter;
+package com.gmail.timothy10.silas.HymnBook.presenter;
 
 import android.app.Activity;
 import android.graphics.pdf.PdfRenderer;
@@ -10,8 +10,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.gmail.timothy10.silas.hymnbook.Constants;
-import com.gmail.timothy10.silas.hymnbook.view.impl.PdfRendererBasicViewImpl;
+import com.gmail.timothy10.silas.HymnBook.Constants;
+import com.gmail.timothy10.silas.HymnBook.view.impl.PdfRendererBasicViewImpl;
 
 /**
  * PdfRendererPresenter
