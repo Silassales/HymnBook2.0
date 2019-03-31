@@ -6,4 +6,6 @@
     <color name="colorSecondary">#538340</color>
 
     <color name="onPrimary">#ffffff</color>
+
+    <color name="goldText">#ffd700</color>
 </resources>
