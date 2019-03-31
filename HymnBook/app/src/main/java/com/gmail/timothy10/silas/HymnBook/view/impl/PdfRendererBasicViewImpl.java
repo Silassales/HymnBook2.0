@@ -296,13 +296,8 @@ public class PdfRendererBasicViewImpl extends Fragment implements View.OnTouchLi
         mCurrentPage.render(scaledBitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
         // We are ready to show the Bitmap to user.
         mImageView.setImageBitmap(scaledBitmap);
-        updateUi();
     }
 
-    public void updateUi() {
-        int hymn_number = hymnSearchTextChanged.getHymnNumberForPageNumber(mCurrentPage.getIndex() + 1);
-        getActivity().setTitle(getString(R.string.title_name));
-    }
 
     public int getPageCount() {
         return mPdfRenderer.getPageCount();

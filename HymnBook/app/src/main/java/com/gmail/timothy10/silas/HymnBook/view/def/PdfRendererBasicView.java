@@ -30,11 +30,6 @@ public interface PdfRendererBasicView {
     void showPage(int index);
 
     /**
-     * Updates the state of 2 control buttons in response to the current page index.
-     */
-    void updateUi();
-
-    /**
      * Gets the number of pages in the PDF. This method is marked as public for testing.
      *
      * @return The number of pages.

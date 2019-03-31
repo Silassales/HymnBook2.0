@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         if (savedInstanceState == null) {
             Log.i("MainActivity", "Creating new pdf Fragment");
             getSupportFragmentManager().beginTransaction()
@@ -44,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
                             FRAGMENT_ID)
                     .commit();
         }
+
+        setTitle(getString(R.string.title_name));
     }
 
 
@@ -59,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements MainView, Navigat
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
